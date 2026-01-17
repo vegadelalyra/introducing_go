@@ -12,3 +12,9 @@ func DeleteSecure[T any](s []T, i int) []T {
     return s
 }
 
+func DS[T any](s []T, i int) []T {
+    s = append(s[:i], s[i+1:]...)
+    var zero T
+    s[:cap(s)][len(s)] = zero 
+    return s
+}

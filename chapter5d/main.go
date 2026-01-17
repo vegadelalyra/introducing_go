@@ -23,9 +23,7 @@ func deleteSliceElms() {
 
     delSliceElm := func() []int {
         slice = append(slice[:idxToDel], slice[idxToDel + 1:]...)
-        slice = slice[:len(slice) + 1]
-        slice[len(slice) - 1] = 0 // safe idiom slice deletion
-        slice = slice[:len(slice) - 1]
+        slice[:cap(slice)][len(slice)] = 0  // safe idiom slice deletion
         return slice 
     }
 
