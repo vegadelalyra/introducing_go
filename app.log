@@ -1,0 +1,4 @@
+APP_LOG: 2026/01/16 20:55:34 main.go:26: This message is hidden from the terminal, it's in app.log!
+APP_LOG: 2026/01/16 20:55:34 main.go:29: This prints the log + a stack trace and stops the app
+APP_LOG: 2026/01/16 20:57:12 main.go:26: This message is hidden from the terminal, it's in app.log!
+APP_LOG: 2026/01/16 20:57:12 main.go:30: This prints the log and exits with status 1 immediately
