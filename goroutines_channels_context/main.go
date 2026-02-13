@@ -6,13 +6,14 @@ import (
 	"math/rand/v2"
 	"time"
 
+	"github.com/google/uuid"
 	"golang.org/x/sync/errgroup"
 )
 
 // 1. Define custom types for Context keys to avoid collisions
 type ctxKey string
-
 const TraceIDKey ctxKey = "trace-id"
+var traceID = uuid.New().String()
 
 // Result represents data fetched from an "API"
 type Result struct {
@@ -22,7 +23,7 @@ type Result struct {
 
 func main() {
     // 2. ROOT CONTEXT: Start with Background and add a Trace ID
-    rootCtx := context.WithValue(context.Background(), TraceIDKey, "REQ-123")
+    rootCtx := context.WithValue(context.Background(), TraceIDKey, traceID)
 
     // 3. TIMEOUT: Ensure the whole operation doesn't take more than 1 second 
     ctx, cancel := context.WithTimeout(rootCtx, 1*time.Second)

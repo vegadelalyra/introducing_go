@@ -15,10 +15,12 @@ func main() {
     fmt.Scanln()
     fmt.Println("When we use safe delete...")
     fmt.Scanln()
-	removeItemFromSliceSecure(mySlice, 1)
+	// removeItemFromSliceSecure(mySlice, 1)
+    mySlice = removeItemFromSliceSecure2(mySlice, 1)
     fmt.Println(mySlice[:cap(mySlice)])
-
     fmt.Println("TADAAA!!")
+    fmt.Println("cap", cap(mySlice), "len", len(mySlice))
+    fmt.Println("hidden slice revealed:", mySlice[:cap(mySlice)])
 
 }
 
@@ -54,7 +56,15 @@ func demonstrateLeak[T any](mySlice []T, i int) {
 }
 
 func removeItemFromSliceSecure[T any](mySlice []T, elToDel int) {
+    var zero T
 	mySlice = append(mySlice[:elToDel], mySlice[elToDel+1:]...)
-	var zero T
 	mySlice[:cap(mySlice)][len(mySlice)] = zero
 }
+
+func removeItemFromSliceSecure2[T any](mySlice []T, elToDel int) []T {
+	var zero T
+    copy(mySlice[elToDel:], mySlice[elToDel+1:])
+    mySlice[len(mySlice)-1] = zero 
+    return mySlice[:len(mySlice)-1]
+}
+
